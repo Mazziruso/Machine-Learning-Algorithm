@@ -1,38 +1,43 @@
-package svm;
-import java.io.*;
-import java.util.StringTokenizer;
-import java.math.BigDecimal;
+package SVM;
 
-public class SVMTest {
+import java.io.*;
+
+/*
+Require: label needs -1 or +1
+ */
+
+public class DemoTest {
     public static void main(String[] args) throws IOException {
-        String[] dir = {"E:\\JavaWorkspace\\SVMData\\mySVMTest\\a1a.txt",
-                        "E:\\JavaWorkspace\\SVMData\\mySVMTest\\a1a.model",
-                        "E:\\JavaWorkspace\\SVMData\\mySVMTest\\a1aT.txt",
-                        "E:\\JavaWorkspace\\SVMData\\mySVMTest\\a1aT.output"};
+        String[] dir = {"SVMData\\mySVMTestWSS1\\svmguide1.scale", //训练数据集
+                "SVMData\\mySVMTestWSS1\\svmguide1.model",   //存放SVM模型
+                "SVMData\\mySVMTestWSS1\\svmguide1t.scale",        //测试数据集
+                "SVMData\\mySVMTestWSS1\\svmguide1t.output"};//测试集label输出
 
         SVMProblem prob = SVM.svmReadProblem(dir[0]);
+
         SVMParameter param = new SVMParameter();
         //SVM Parameter setup
         param.kernel_type = 2;
         param.degree = 3;
-        param.sigma = 0.031D;
+        param.sigma = 0.25D;
         param.coef0 = 0.0D;
         param.eps = 1e-3D;
         param.tolerance = 0.001;
         param.C = 2.0D;
+        param.tao = 1e-12;
 
         //SVM TRAIN
         SVMModel model;
 
-//        model = SVM.svmTrain(prob, param);
+        model = SVM.svmTrain(prob, param);
 
         //SVM MODEL SAVE
-//        SVM.svmSaveModel(dir[1], model);
+        SVM.svmSaveModel(dir[1], model);
 
         //SVM MODEL LOAD
-        model = SVM.svmLoadModel(dir[1]);
+//        model = SVM.svmLoadModel(dir[1]);
 
-        SVM.modelInfo(model);
+//        SVM.modelInfo(model);
 
         //SVM PREDICT
         //test datum
@@ -40,5 +45,8 @@ public class SVMTest {
 
         double acc = SVM.svmPredict(model, testX, dir[3]);
 
+//        System.out.println(acc);
+
     }
 }
+
