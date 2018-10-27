@@ -6,7 +6,9 @@
 ## Java
 实现C-SVM算法
 根据其优化变量选择方案分为三个版本：  
-+WSS1  +WSS2  +WSS3
++WSS1
++WSS2
++WSS3
 
 ## SVMData
 训练与测试数据集
